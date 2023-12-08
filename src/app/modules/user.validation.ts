@@ -1,21 +1,38 @@
 import { z } from 'zod';
 
 const FullNameValidation = z.object({
-  firstName: z.string().min(3).max(20, { message: 'firstName is required' }),
-  lastName: z.string().min(3).max(20, { message: 'lastName is required' }),
+  firstName: z
+    .string()
+    .min(3, { message: 'first name min lenght 3 character' })
+    .max(20, { message: 'firstName max lenght 20 character' }),
+  lastName: z
+    .string()
+    .min(3, { message: 'last name min lenght 3 character' })
+    .max(20, { message: 'lastName max lenght 20 character' }),
 });
 const AddressValidation = z.object({
-  street: z.string().min(3).max(20, { message: 'street is required' }),
-  city: z.string().min(3).max(20, { message: 'city is required' }),
-  country: z.string().min(3).max(20, { message: 'country is required' }),
+  street: z
+    .string()
+    .min(3, { message: 'street length must be 3 character' })
+    .max(20, { message: 'street max lenght 20 character' }),
+  city: z
+    .string()
+    .min(3, { message: 'city length must be 3 character' })
+    .max(20, { message: 'city max lenght 20 character' }),
+  country: z
+    .string()
+    .min(3, { message: 'country length must be 3 character' })
+    .max(20, { message: 'country max lenght 20 character ' }),
 });
 const OrderValidation = z.object({
   productName: z
     .string()
-    .min(3)
-    .max(200, { message: 'productName is required' }),
-  price: z.number().min(1, { message: 'price is required' }),
-  quantity: z.number().min(1, { message: 'quantity is required' }),
+    .min(3, { message: 'product Name length must be 3 character' })
+    .max(200, { message: 'product Name max length 200 character' }),
+  price: z.number().min(1, { message: 'price length must be 1 character' }),
+  quantity: z
+    .number()
+    .min(1, { message: 'quantity length must be 1 character' }),
 });
 
 export const userValidation = z.object({
@@ -23,9 +40,16 @@ export const userValidation = z.object({
     .number()
     .int()
     .positive('User Id Must Be possitive number')
-    .min(6, { message: 'Use Id required' }),
-  username: z.string().min(3).max(20, { message: 'street is required' }),
-  password: z.string().min(1).max(20, { message: 'Password is required' }),
+    .min(6, { message: 'Use Id minimum 6 character' }),
+
+  username: z
+    .string()
+    .min(3, { message: 'username min lenght 3 character' })
+    .max(20, { message: 'username max lenght 20 character' }),
+  password: z
+    .string()
+    .min(5, { message: 'Password must be at last 5 character' })
+    .max(15, { message: 'Password max length 15 character' }),
   fullName: FullNameValidation.refine(
     (value) => value.firstName && value.lastName,
     {
