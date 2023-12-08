@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { IAddress, IName, IOrders, IUserInterface } from './user.interface';
 
 export const nameSchema = new Schema<IName>({
@@ -98,3 +98,5 @@ export const userSchema = new Schema<IUserInterface>({
     default: false,
   },
 });
+
+export const User = model<IUserInterface>('User', userSchema);

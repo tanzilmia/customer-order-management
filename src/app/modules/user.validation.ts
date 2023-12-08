@@ -33,7 +33,7 @@ export const userValidation = z.object({
     },
   ),
   age: z.number().min(1, { message: 'age is required' }),
-  email: z.string().min(3).max(20, { message: 'email is required' }),
+  email: z.string().email('Invalid email formet'),
   isActive: z.boolean(),
   hobbies: z.array(z.string()),
   address: AddressValidation.refine(
