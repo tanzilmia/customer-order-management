@@ -27,7 +27,7 @@ export const userValidation = z.object({
   username: z.string().min(3).max(20, { message: 'street is required' }),
   password: z.string().min(1).max(20, { message: 'Password is required' }),
   fullName: FullNameValidation.refine(
-    (value) => !!value.firstName || !!value.lastName,
+    (value) => value.firstName && value.lastName,
     {
       message: 'firstName and lastName required',
     },
@@ -37,11 +37,11 @@ export const userValidation = z.object({
   isActive: z.boolean(),
   hobbies: z.array(z.string()),
   address: AddressValidation.refine(
-    (value) => value.city || value.country || value.street,
+    (value) => value.city && value.country && value.street,
     {
       message: 'city, country, street is required',
     },
   ),
-  orders: OrderValidation.optional(),
-  isDeleted: z.boolean(),
+  orders: z.array(OrderValidation).optional(),
+  isDeleted: z.boolean().default(false),
 });
