@@ -39,8 +39,8 @@ export const userValidation = z.object({
   userId: z
     .number()
     .int()
-    .positive('User Id Must Be possitive number')
-    .min(6, { message: 'Use Id minimum 6 character' }),
+    .positive(`User id must be positive int`)
+    .min(1, { message: 'User Id minimum 1 character' }),
 
   username: z
     .string()

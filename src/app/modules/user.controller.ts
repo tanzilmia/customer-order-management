@@ -49,7 +49,44 @@ export const getUsers = async (
       message: 'Users fetched successfully!',
       data: result,
     });
-  } catch (error) {
+  } catch (error: unknown) {
+    res.status(500).json({
+      code: 500,
+      description: 'Internal server error',
+      details: error,
+    });
+  }
+  next();
+};
+
+// get single user
+
+export const getSingleUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const id = req.params.userId;
+    const result = await userServices.findSingleUser(id);
+
+    if (result) {
+      res.status(200).json({
+        success: true,
+        massage: 'User fetched successfully!',
+        data: result,
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        massage: 'User not found',
+        error: {
+          code: 404,
+          description: 'User not found!',
+        },
+      });
+    }
+  } catch (error: unknown) {
     res.status(500).json({
       code: 500,
       description: 'Internal server error',
