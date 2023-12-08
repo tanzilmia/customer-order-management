@@ -1,15 +1,21 @@
-interface IName {
+export interface IName {
   firstName: string;
   lastName: string;
 }
-interface IAddress {
+export interface IAddress {
   street: string;
   city: string;
   country: string;
 }
 
-export interface IUser {
-  userId: string;
+export interface IOrders {
+  productName: string;
+  price: number;
+  quantity: number;
+}
+
+export interface IUserInterface {
+  userId: number;
   username: string;
   password: string;
   fullName: IName;
@@ -18,4 +24,6 @@ export interface IUser {
   isActive: boolean;
   hobbies: string[];
   address: IAddress;
+  orders?: IOrders[];
+  isDeleted?: boolean;
 }
