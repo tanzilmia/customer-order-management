@@ -39,9 +39,42 @@ const findSingleUser = async (id: string) => {
   );
   return result;
 };
+// update single user data
+const updateSIngleUser = async (id: string, data: IUserInterface) => {
+  const {
+    userId,
+    username,
+    password,
+    fullName,
+    age,
+    email,
+    isActive,
+    hobbies,
+    address,
+  } = data;
+
+  const result = await User.updateOne(
+    { userId: id },
+    {
+      $set: {
+        userId,
+        username,
+        password,
+        fullName,
+        age,
+        email,
+        isActive,
+        hobbies,
+        address,
+      },
+    },
+  );
+  return result;
+};
 
 export const userServices = {
   createUserInDB,
   getAllUsers,
   findSingleUser,
+  updateSIngleUser,
 };

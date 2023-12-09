@@ -95,3 +95,41 @@ export const getSingleUser = async (
   }
   next();
 };
+
+// update single user info
+
+export const updateUserInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const id = req.params.userId;
+    const data = req.body;
+    const result = await userServices.updateSIngleUser(id, data);
+    if (result.modifiedCount === 1) {
+      const updatedData = await userServices.findSingleUser(id);
+      res.status(200).json({
+        success: true,
+        massage: 'User updated successfully!',
+        data: updatedData,
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        massage: 'User not found',
+        error: {
+          code: 404,
+          description: 'User not found!',
+        },
+      });
+    }
+  } catch (error: unknown) {
+    res.status(500).json({
+      code: 500,
+      description: 'Internal server error',
+      details: error,
+    });
+  }
+  next();
+};
