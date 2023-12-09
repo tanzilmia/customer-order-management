@@ -133,3 +133,39 @@ export const updateUserInfo = async (
   }
   next();
 };
+
+// delete user
+
+export const deletedSingleUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const id = req.params.userId;
+    const result = await userServices.singleUserDeleteFromDB(id);
+    if (result.modifiedCount === 1) {
+      res.status(200).json({
+        success: true,
+        massage: 'User deleted successfully!',
+        data: null,
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        massage: 'User not found!',
+        error: {
+          code: 404,
+          description: 'User not found!',
+        },
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      massage: 'something want wrong',
+      error: error,
+    });
+  }
+  next();
+};

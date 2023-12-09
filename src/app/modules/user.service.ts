@@ -8,7 +8,7 @@ const createUserInDB = async (user: IUserInterface) => {
 //
 const getAllUsersFromDB = async () => {
   const result = await User.find(
-    {},
+    { isDeleted: false },
     {
       userId: 1,
       username: 1,
@@ -72,9 +72,20 @@ const updateSIngleUserFromDB = async (id: string, data: IUserInterface) => {
   return result;
 };
 
+// delete single user
+
+const singleUserDeleteFromDB = async (id: string) => {
+  const result = await User.updateOne(
+    { userId: id },
+    { $set: { isDeleted: true } },
+  );
+  return result;
+};
+
 export const userServices = {
   createUserInDB,
   getAllUsersFromDB,
   findSingleUserFromDB,
   updateSIngleUserFromDB,
+  singleUserDeleteFromDB,
 };
