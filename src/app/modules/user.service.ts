@@ -91,6 +91,13 @@ const addOrderDataIntoDB = async (id: string, createOrder: IUserInterface) => {
   return result;
 };
 
+// get user order data
+
+const getUserAllOrdersDataIntoDB = async (id: string) => {
+  const result = await User.findOne({ userId: id });
+  return result;
+};
+
 export const userServices = {
   createUserInDB,
   getAllUsersFromDB,
@@ -98,4 +105,5 @@ export const userServices = {
   updateSIngleUserFromDB,
   singleUserDeleteFromDB,
   addOrderDataIntoDB,
+  getUserAllOrdersDataIntoDB,
 };

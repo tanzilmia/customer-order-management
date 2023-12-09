@@ -205,3 +205,37 @@ export const addUserOrder = async (
   }
   next();
 };
+
+export const getUserAllOrderData = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const id = req.params.userId;
+    const result = await userServices.getUserAllOrdersDataIntoDB(id);
+    if (result) {
+      res.status(200).json({
+        success: true,
+        massage: 'Order fetched successfully!',
+        data: { orders: result?.orders },
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        massage: 'User not found',
+        error: {
+          code: 404,
+          description: 'User not found!',
+        },
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      massage: 'something went wrong',
+      error: error,
+    });
+  }
+  next();
+};
