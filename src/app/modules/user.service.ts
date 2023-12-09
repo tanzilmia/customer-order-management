@@ -5,8 +5,8 @@ const createUserInDB = async (user: IUserInterface) => {
   const result = await User.create(user);
   return result;
 };
-
-const getAllUsers = async () => {
+//
+const getAllUsersFromDB = async () => {
   const result = await User.find(
     {},
     {
@@ -23,7 +23,7 @@ const getAllUsers = async () => {
   return result;
 };
 
-const findSingleUser = async (id: string) => {
+const findSingleUserFromDB = async (id: string) => {
   const result = await User.findOne(
     { userId: id },
     {
@@ -40,7 +40,7 @@ const findSingleUser = async (id: string) => {
   return result;
 };
 // update single user data
-const updateSIngleUser = async (id: string, data: IUserInterface) => {
+const updateSIngleUserFromDB = async (id: string, data: IUserInterface) => {
   const {
     userId,
     username,
@@ -74,7 +74,7 @@ const updateSIngleUser = async (id: string, data: IUserInterface) => {
 
 export const userServices = {
   createUserInDB,
-  getAllUsers,
-  findSingleUser,
-  updateSIngleUser,
+  getAllUsersFromDB,
+  findSingleUserFromDB,
+  updateSIngleUserFromDB,
 };

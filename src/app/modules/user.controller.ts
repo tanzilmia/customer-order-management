@@ -43,7 +43,7 @@ export const getUsers = async (
   next: NextFunction,
 ) => {
   try {
-    const result = await userServices.getAllUsers();
+    const result = await userServices.getAllUsersFromDB();
     res.status(200).json({
       success: true,
       message: 'Users fetched successfully!',
@@ -68,7 +68,7 @@ export const getSingleUser = async (
 ) => {
   try {
     const id = req.params.userId;
-    const result = await userServices.findSingleUser(id);
+    const result = await userServices.findSingleUserFromDB(id);
 
     if (result) {
       res.status(200).json({
@@ -106,9 +106,9 @@ export const updateUserInfo = async (
   try {
     const id = req.params.userId;
     const data = req.body;
-    const result = await userServices.updateSIngleUser(id, data);
+    const result = await userServices.updateSIngleUserFromDB(id, data);
     if (result.modifiedCount === 1) {
-      const updatedData = await userServices.findSingleUser(id);
+      const updatedData = await userServices.findSingleUserFromDB(id);
       res.status(200).json({
         success: true,
         massage: 'User updated successfully!',
