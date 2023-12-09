@@ -82,10 +82,20 @@ const singleUserDeleteFromDB = async (id: string) => {
   return result;
 };
 
+// add order in user array
+const addOrderDataIntoDB = async (id: string, createOrder: IUserInterface) => {
+  const result = await User.updateOne(
+    { userId: id },
+    { $push: { orders: createOrder } },
+  );
+  return result;
+};
+
 export const userServices = {
   createUserInDB,
   getAllUsersFromDB,
   findSingleUserFromDB,
   updateSIngleUserFromDB,
   singleUserDeleteFromDB,
+  addOrderDataIntoDB,
 };
